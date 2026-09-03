@@ -253,4 +253,225 @@ footer{position:relative; z-index:2; text-align:center; font-size:.68rem; font-w
     <button class="btn" id="toSend" disabled>next · seal the deal →</button>
   </section>
 
- 
+  <!-- STEP 4 · CONFIRM + WHATSAPP -->
+  <section class="step" data-step="4">
+    <button class="back" data-back>← back</button>
+    <div class="kicker">final step</div>
+    <h2>Your ticket, madam.</h2>
+    <p class="note">check it twice, then send it to me ♡</p>
+
+    <div class="ticket">
+      <div class="t-head"><span>Date Ticket</span><span>Admit Two</span></div>
+      <div class="t-body">
+        <div class="trow"><span class="k">when</span><span class="v" id="tWhen">—</span></div>
+        <div class="trow"><span class="k">where</span><span class="v" id="tWhere">—</span></div>
+        <div class="trow"><span class="k">with</span><span class="v">your favorite person <small>(me. it's me. obviously.)</small></span></div>
+        <div class="trow"><span class="k">dress code</span><span class="v">pretty <small>bring one smile for entry ✿</small></span></div>
+      </div>
+      <div class="perf"></div>
+      <div class="barcode"><span class="lines"></span><span>№ 001 · T ♡ T</span></div>
+    </div>
+
+    <div class="chat">
+      <div class="bub in"><span class="who">Taruu 💗</span><br>okay okay… let me pick 😌<div class="meta">now</div></div>
+      <div class="bub out"><span id="bubMsg"></span><div class="meta">now ✓✓</div></div>
+    </div>
+
+    <button class="btn wa" id="waBtn">
+      <svg viewBox="0 0 24 24"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2m0 1.67c2.2 0 4.26.86 5.82 2.42a8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23-1.48 0-2.93-.39-4.19-1.15l-.3-.17-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c.01-4.54 3.7-8.25 8.25-8.25m-3.53 4.4c-.16 0-.43.06-.66.31-.22.25-.87.85-.87 2.07 0 1.22.89 2.4 1 2.56.12.17 1.76 2.67 4.25 3.73.59.27 1.05.42 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.46-.6 1.67-1.18.2-.58.2-1.07.14-1.18s-.22-.16-.47-.28-1.46-.7-1.69-.79-.39-.12-.56.12-.64.79-.78.95-.29.18-.53.06a6.7 6.7 0 0 1-1.98-1.22 7.4 7.4 0 0 1-1.37-1.7c-.14-.24 0-.37.11-.49.11-.11.24-.29.37-.43.12-.15.16-.24.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.77-1.84c-.2-.48-.4-.42-.56-.42z"/></svg>
+      send it to me on WhatsApp
+    </button>
+    <p class="smallnote">opens our chat with everything typed out — she just presses send ♡</p>
+    <p class="signed">yours, always ♡</p>
+    <div class="again"><button id="restart" type="button">↺ start over</button></div>
+  </section>
+</main>
+
+<footer>made with too much love · t ✕ t</footer>
+
+<script>
+/* ═══════════════ CHANGE THESE ═══════════════ */
+const PASSWORD  = "taruu";          // 👈 secret word (she types this)
+const WHATSAPP  = "94763886872";    // 👈 your number, no "+"
+/* ════════════════════════════════════════════ */
+
+const TIMES = [
+  {em:"☀️", l:"Morning",     t:"9:30 AM"},
+  {em:"🥐", l:"Brunch",      t:"11:00 AM"},
+  {em:"🍜", l:"Lunch",       t:"1:00 PM"},
+  {em:"🧋", l:"Tea & walks", t:"4:00 PM"},
+  {em:"🌇", l:"Golden hour", t:"6:00 PM"},
+  {em:"🌙", l:"Dinner",      t:"7:30 PM"},
+];
+const VENUES = [
+  {em:"🍿", n:"Movie",     d:"any film, your pick"},
+  {em:"🌳", n:"Park",      d:"slow walks, warm talks"},
+  {em:"🏛️", n:"Museum",    d:"art, history & us", pick:true},
+  {em:"☕", n:"Café",      d:"coffee & giggles"},
+  {em:"🍦", n:"Ice cream", d:"scoops first"},
+  {em:"🎳", n:"Bowling",   d:"I will win. lovingly."},
+  {em:"✏️", n:"Your idea", d:"custom — surprise me", custom:true},
+];
+
+const state = { day:null, dayLabel:"", time:null, place:null, custom:"" };
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+/* ── ambient floating hearts ── */
+(function(){
+  const box=$("#floaters"), chars=["♥","♡","✿"], cols=["#e4536f","#dfa63f","#f5a3b4","#5f8f6c"];
+  for(let i=0;i<11;i++){
+    const s=document.createElement("span");
+    s.textContent=chars[i%3];
+    s.style.left=Math.random()*100+"vw";
+    s.style.fontSize=(12+Math.random()*16)+"px";
+    s.style.color=cols[i%4];
+    s.style.animationDuration=(13+Math.random()*12)+"s";
+    s.style.animationDelay=(-Math.random()*15)+"s";
+    box.appendChild(s);
+  }
+})();
+
+/* ── heart burst ── */
+function burst(x,y,n=22){
+  for(let i=0;i<n;i++){
+    const h=document.createElement("span");
+    h.className="burst"; h.textContent=["♥","♡","✿"][i%3];
+    h.style.color=["#e4536f","#dfa63f","#b23552"][i%3];
+    h.style.left=x+"px"; h.style.top=y+"px";
+    document.body.appendChild(h);
+    const a=Math.random()*Math.PI*2, d=50+Math.random()*130;
+    h.animate([
+      {transform:"translate(-50%,-50%) scale(.5)",opacity:1},
+      {transform:`translate(${Math.cos(a)*d-8}px,${Math.sin(a)*d-90}px) rotate(${Math.random()*160-80}deg) scale(${.8+Math.random()})`,opacity:0}
+    ],{duration:850+Math.random()*500,easing:"cubic-bezier(.2,.7,.3,1)"}).onfinish=()=>h.remove();
+  }
+}
+
+/* ── step machine ── */
+let current=1;
+function showStep(n){
+  current=n;
+  $$(".step").forEach(s=>s.classList.toggle("active", +s.dataset.step===n));
+  $$(".progress .dot").forEach(d=>{
+    const s=+d.dataset.step;
+    d.classList.toggle("now", s===n);
+    d.classList.toggle("done", s<n);
+    d.textContent = s<n ? "♥" : s;
+  });
+  window.scrollTo({top:0});
+  if(n===4) fillTicket();
+}
+$$(".progress .dot").forEach(d=>d.addEventListener("click",()=>{
+  const s=+d.dataset.step; if(s<current) showStep(s);
+}));
+$$("[data-back]").forEach(b=>b.addEventListener("click",()=>showStep(current-1)));
+
+/* ── STEP 1 · envelope + password ── */
+const env=$("#env");
+$("#seal").addEventListener("click",()=>{ env.classList.add("open"); $("#pw").focus({preventScroll:false}); });
+$("#lockform").addEventListener("submit",e=>{
+  e.preventDefault();
+  if(!env.classList.contains("open")){ env.classList.add("open"); return; }
+  const v=$("#pw").value.trim().toLowerCase();
+  if(v===PASSWORD){
+    $("#pwerr").textContent="";
+    const r=$("#seal").getBoundingClientRect();
+    burst(r.left+r.width/2, r.top+r.height/2);
+    setTimeout(()=>{ env.classList.add("gone"); showStep(2); },550);
+  }else{
+    $("#pwerr").textContent="nope! try again, cutie 🙈";
+    $("#pw").classList.add("shake"); $("#pw").value="";
+    setTimeout(()=>$("#pw").classList.remove("shake"),450);
+  }
+});
+
+/* ── STEP 2 · days & times ── */
+(function(){
+  const box=$("#days"), today=new Date();
+  for(let i=1;i<=10;i++){
+    const d=new Date(today); d.setDate(today.getDate()+i);
+    const b=document.createElement("button");
+    b.type="button"; b.className="day";
+    const wd=d.toLocaleDateString("en-GB",{weekday:"short"});
+    const mo=d.toLocaleDateString("en-GB",{month:"short"});
+    b.innerHTML=`<span class="wd">${wd}</span><span class="num">${d.getDate()}</span><span class="mo">${mo}</span>`;
+    b.addEventListener("click",()=>{
+      $$(".day").forEach(x=>x.classList.remove("sel"));
+      b.classList.add("sel");
+      state.day=d;
+      state.dayLabel=`${wd}, ${d.getDate()} ${mo}`;
+      checkWhen();
+    });
+    box.appendChild(b);
+  }
+  const tb=$("#times");
+  TIMES.forEach((t,i)=>{
+    const b=document.createElement("button");
+    b.type="button"; b.className="time";
+    b.innerHTML=`<span class="em">${t.em}</span><span class="tx"><b>${t.l}</b><small>${t.t}</small></span>`;
+    b.addEventListener("click",()=>{
+      $$(".time").forEach(x=>x.classList.remove("sel"));
+      b.classList.add("sel"); state.time=t; checkWhen();
+    });
+    tb.appendChild(b);
+  });
+})();
+function checkWhen(){ $("#toWhere").disabled = !(state.day && state.time); }
+$("#toWhere").addEventListener("click",()=>showStep(3));
+
+/* ── STEP 3 · venues ── */
+(function(){
+  const box=$("#venues");
+  VENUES.forEach(v=>{
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="venue"+(v.custom?" wide":"");
+    b.innerHTML=`${v.pick?'<span class="badge">★ my pick</span>':""}<span class="em">${v.em}</span><span><b>${v.n}</b><small>${v.d}</small></span>`;
+    b.addEventListener("click",()=>{
+      $$(".venue").forEach(x=>x.classList.remove("sel"));
+      b.classList.add("sel"); state.place=v;
+      $("#custombox").classList.toggle("show", !!v.custom);
+      if(v.custom) $("#customin").focus();
+      checkWhere();
+    });
+    box.appendChild(b);
+  });
+})();
+$("#customin").addEventListener("input",e=>{ state.custom=e.target.value.trim(); checkWhere(); });
+function checkWhere(){
+  const ok = state.place && (!state.place.custom || state.custom.length>0);
+  $("#toSend").disabled = !ok;
+}
+$("#toSend").addEventListener("click",()=>showStep(4));
+
+/* ── STEP 4 · ticket + whatsapp ── */
+function placeText(){
+  return state.place.custom ? state.custom : state.place.n;
+}
+function waMessage(){
+  return `okay okay… I picked 😌👇\n\n📅 ${state.dayLabel}\n⏰ ${state.time.l} (${state.time.t})\n📍 ${placeText()}\n\nit's officially a date. don't be late 🥰\n— Taruu 💘\n\n(sent via your cute little website)`;
+}
+function fillTicket(){
+  $("#tWhen").innerHTML=`${state.dayLabel} <small>${state.time.l} · ${state.time.t}</small>`;
+  const sub = state.place.custom ? "her brilliant idea" : state.place.d;
+  $("#tWhere").innerHTML=`${state.place.em} ${placeText()} <small>${sub}</small>`;
+  $("#bubMsg").textContent=waMessage();
+  burst(innerWidth/2, innerHeight*0.35, 26);
+}
+$("#waBtn").addEventListener("click",()=>{
+  burst(innerWidth/2, innerHeight*0.6, 30);
+  const url=`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(waMessage())}`;
+  setTimeout(()=>window.open(url,"_blank"),350);
+});
+$("#restart").addEventListener("click",()=>{
+  Object.assign(state,{day:null,dayLabel:"",time:null,place:null,custom:""});
+  $$(".day,.time,.venue").forEach(x=>x.classList.remove("sel"));
+  $("#custombox").classList.remove("show"); $("#customin").value="";
+  $("#toWhere").disabled=true; $("#toSend").disabled=true;
+  env.classList.remove("open","gone"); $("#pw").value="";
+  showStep(1);
+});
+</script>
+</body>
+</html>
