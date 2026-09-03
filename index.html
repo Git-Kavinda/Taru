@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>for Taruu ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&family=Karla:wght@400;500;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fff3ee; --card:#fffaf5; --ink:#4a2230; --ink-soft:#8a5f6d;
+  --rose:#e4536f; --rose-deep:#b23552; --gold:#dfa63f; --leaf:#5f8f6c;
+  --blush:#ffd9e0; --line:rgba(74,34,48,.16); --wa:#22c15e; --wa-deep:#159a48;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Karla',sans-serif; color:var(--ink); min-height:100dvh;
+  background:
+    radial-gradient(60% 42% at 18% -4%, #ffe2ea 0%, transparent 60%),
+    radial-gradient(52% 40% at 96% 18%, #ffe9d3 0%, transparent 58%),
+    radial-gradient(48% 46% at 55% 104%, #ffdee6 0%, transparent 60%),
+    var(--paper);
+  overflow-x:hidden;
+}
+/* scattered hearts wallpaper */
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><path d="M35 26c6-9 20-6 20 5 0 8-9 13-20 21-11-8-20-13-20-21 0-11 14-14 20-5z" fill="%23f5b3c2" fill-opacity="0.32"/><path d="M108 92c4-6 13-4 13 3 0 5-6 9-13 14-7-5-13-9-13-14 0-7 9-9 13-3z" fill="%23f0c98a" fill-opacity="0.28"/><circle cx="88" cy="30" r="2.5" fill="%23e4536f" fill-opacity="0.18"/></svg>');
+}
+/* paper grain */
+body::after{
+  content:""; position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.05; mix-blend-mode:multiply;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/></filter><rect width="160" height="160" filter="url(%23n)"/></svg>');
+}
+#floaters{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none}
+#floaters span{position:absolute; bottom:-8vh; opacity:0; animation:rise linear infinite}
+@keyframes rise{6%{opacity:.55} 88%{opacity:.3} 100%{transform:translateY(-114vh) rotate(24deg); opacity:0}}
+
+/* top ribbon */
+.ribbon{position:relative; z-index:5; background:var(--ink); color:var(--blush); overflow:hidden; padding:7px 0; font-weight:800; font-size:.62rem; letter-spacing:.22em; text-transform:uppercase}
+.ribbon .track{display:inline-flex; white-space:nowrap; animation:slide 24s linear infinite}
+.ribbon .track i{font-style:normal; padding-right:2.6em}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* letterhead */
+.masthead{position:relative; z-index:2; text-align:left; padding:22px 22px 4px; max-width:440px; margin:0 auto}
+.masthead .from{font-size:.68rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-soft)}
+.masthead h1{font-family:'Fraunces',serif; font-style:italic; font-weight:700; font-size:clamp(2.1rem,9vw,2.9rem); line-height:1.05; margin:.15em 0 .1em}
+.masthead h1 .hrt{color:var(--gold); display:inline-block; animation:beat 1.6s ease-in-out infinite}
+@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.25)}24%{transform:scale(1)}}
+.masthead .re{font-family:'Caveat',cursive; font-size:1.15rem; color:var(--rose-deep)}
+
+main{position:relative; z-index:2; max-width:440px; margin:0 auto; padding:14px 18px 46px}
+
+/* progress */
+.progress{display:flex; gap:10px; align-items:center; margin:6px 0 18px}
+.progress .dot{width:34px; height:34px; border-radius:50%; border:2px solid var(--line); background:var(--card); display:grid; place-items:center; font-weight:800; font-size:.8rem; color:var(--ink-soft); transition:.3s; cursor:default}
+.progress .dot.now{background:var(--rose); border-color:var(--rose); color:#fff; box-shadow:0 4px 12px rgba(228,83,111,.4); transform:scale(1.1)}
+.progress .dot.done{background:var(--gold); border-color:var(--gold); color:#fff; cursor:pointer}
+.progress .bar{flex:1; height:2px; background:var(--line); border-radius:2px}
+
+/* steps */
+.step{display:none}
+.step.active{display:block; animation:stepIn .5s cubic-bezier(.2,.8,.3,1) both}
+@keyframes stepIn{from{opacity:0; transform:translateY(18px)}}
+.kicker{font-size:.66rem; font-weight:800; letter-spacing:.24em; text-transform:uppercase; color:var(--rose-deep); margin-bottom:6px}
+.step h2{font-family:'Fraunces',serif; font-style:italic; font-weight:700; font-size:clamp(1.7rem,7.4vw,2.2rem); line-height:1.1}
+.note{font-family:'Caveat',cursive; font-size:1.2rem; color:var(--ink-soft); margin:6px 0 16px}
+.back{background:none; border:none; font-family:'Karla'; font-weight:700; color:var(--ink-soft); font-size:.85rem; padding:6px 2px; margin-bottom:6px; cursor:pointer}
+.back:active{transform:translateX(-3px)}
+
+/* buttons */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; border:none; cursor:pointer; font-family:'Karla'; font-weight:800; font-size:1rem; letter-spacing:.02em; padding:15px 18px; border-radius:14px; color:#fff; background:var(--rose); box-shadow:0 4px 0 var(--rose-deep); transition:transform .12s, box-shadow .12s, opacity .2s}
+.btn:active{transform:translateY(3px); box-shadow:0 1px 0 var(--rose-deep)}
+.btn:disabled{opacity:.4; pointer-events:none}
+.btn.wa{background:var(--wa); box-shadow:0 4px 0 var(--wa-deep)}
+.btn.wa:active{box-shadow:0 1px 0 var(--wa-deep)}
+.btn svg{width:20px; height:20px; fill:#fff}
+
+/* ── envelope ─────────────────────── */
+.envwrap{margin-top:14px}
+.env{position:relative; width:100%; max-width:350px; margin:0 auto; transition:opacity .5s}
+.env-back{position:absolute; left:0; right:0; top:150px; height:185px; background:#e79fae; border-radius:10px}
+.env-letter{position:absolute; left:10px; right:10px; top:162px; z-index:2; background:var(--card); border:2px solid var(--ink); border-radius:10px; box-shadow:0 10px 24px rgba(74,34,48,.16); max-height:122px; overflow:hidden; padding:20px 18px 18px; transition:max-height .9s ease, top .9s ease}
+.env-front{position:absolute; left:0; right:0; top:150px; height:185px; z-index:3; background:linear-gradient(180deg,#f4b6c3,#e79fae); clip-path:polygon(0 0,50% 42%,100% 0,100% 100%,0 100%); border-radius:0 0 10px 10px}
+.env-flap{position:absolute; left:0; right:0; top:150px; height:102px; z-index:4; background:linear-gradient(180deg,var(--rose),var(--rose-deep)); clip-path:polygon(0 0,100% 0,50% 100%); transform-origin:top center; transition:transform .65s ease, z-index 0s .3s}
+.env.open .env-flap{transform:rotateX(180deg); z-index:1}
+.env.open .env-letter{max-height:520px; top:84px; z-index:5; transition:max-height .9s ease .45s, top .9s ease .45s, z-index 0s .5s}
+.seal{position:absolute; left:50%; top:216px; transform:translateX(-50%); z-index:6; width:64px; height:64px; border-radius:50%; border:3px solid #f2c063; background:radial-gradient(circle at 35% 30%, #b23552, #7e2440); color:#ffe4c8; font-family:'Fraunces',serif; font-style:italic; font-weight:700; font-size:1.7rem; cursor:pointer; box-shadow:0 6px 14px rgba(74,34,48,.35); transition:.35s; animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-6px)}}
+.seal:active{transform:translateX(-50%) scale(.92)}
+.env.open .seal{opacity:0; pointer-events:none; animation:none}
+.taptap{text-align:center; font-family:'Caveat',cursive; font-size:1.15rem; color:var(--rose-deep); margin-top:10px; animation:beat 1.6s infinite}
+.env.open ~ .taptap, .env.open + .taptap{display:none}
+.env.gone{opacity:0; pointer-events:none}
+
+/* letter form */
+.lform .psst{font-family:'Caveat',cursive; font-size:1.15rem; color:var(--rose-deep)}
+.lform h3{font-family:'Fraunces',serif; font-style:italic; font-size:1.5rem; margin:2px 0 4px}
+.lform p{font-size:.86rem; color:var(--ink-soft); margin-bottom:12px}
+.lform input{width:100%; font-family:'Karla'; font-size:16px; text-align:center; letter-spacing:.18em; padding:13px 12px; border:2px solid var(--ink); border-radius:12px; background:#fff; margin-bottom:10px}
+.lform input:focus{outline:3px dashed var(--rose); outline-offset:2px}
+.lform .hint{font-size:.75rem; color:var(--ink-soft); text-align:center; margin-top:10px}
+.err{font-size:.82rem; font-weight:700; color:var(--rose-deep); text-align:center; min-height:1.2em; margin-bottom:6px}
+.shake{animation:shake .4s}
+@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+
+/* day chips */
+.scroller{display:flex; gap:10px; overflow-x:auto; padding:6px 2px 14px; scroll-snap-type:x mandatory; scrollbar-width:none}
+.scroller::-webkit-scrollbar{display:none}
+.day{scroll-snap-align:start; flex:0 0 auto; min-width:66px; padding:10px 8px 9px; text-align:center; background:var(--card); border:2px solid var(--line); border-radius:14px; cursor:pointer; transition:.18s; font-family:'Karla'}
+.day .wd{font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft)}
+.day .num{font-family:'Fraunces',serif; font-weight:700; font-size:1.55rem; line-height:1.15}
+.day .mo{font-size:.68rem; font-weight:700; color:var(--ink-soft)}
+.day.sel{background:var(--rose); border-color:var(--rose-deep); color:#fff; transform:rotate(-2deg) scale(1.05); box-shadow:0 6px 14px rgba(228,83,111,.35)}
+.day.sel .wd,.day.sel .mo{color:#ffdbe3}
+.lbl{font-size:.66rem; font-weight:800; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); margin:4px 0 8px}
+
+/* time chips */
+.times{display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:18px}
+.time{display:flex; align-items:center; gap:10px; background:var(--card); border:2px solid var(--line); border-radius:14px; padding:11px 12px; cursor:pointer; transition:.18s}
+.time .em{font-size:1.35rem}
+.time .tx b{display:block; font-size:.9rem}
+.time .tx small{font-size:.72rem; color:var(--ink-soft); font-weight:700}
+.time.sel{border-color:var(--rose); background:var(--blush); transform:scale(1.02)}
+.time:active{transform:scale(.97)}
+
+/* venue cards */
+.venues{display:grid; grid-template-columns:repeat(2,1fr); gap:11px; margin-bottom:14px}
+.venue{position:relative; background:var(--card); border:2px dashed var(--line); border-radius:16px; padding:16px 12px 13px; text-align:center; cursor:pointer; transition:.18s}
+.venue .em{font-size:1.9rem; display:block; margin-bottom:6px; transition:transform .25s}
+.venue b{display:block; font-size:.95rem}
+.venue small{font-size:.72rem; color:var(--ink-soft); line-height:1.3; display:block; margin-top:3px}
+.venue.sel{border:2px solid var(--rose); background:var(--blush); transform:rotate(-1deg) scale(1.03); box-shadow:0 8px 16px rgba(228,83,111,.25)}
+.venue.sel .em{transform:scale(1.2) rotate(-8deg)}
+.venue:active{transform:scale(.96)}
+.venue.wide{grid-column:1/-1; display:flex; align-items:center; gap:12px; text-align:left; padding:14px}
+.venue.wide .em{margin:0}
+.badge{position:absolute; top:-11px; right:-6px; background:var(--gold); color:#fff; font-size:.64rem; font-weight:800; letter-spacing:.06em; padding:4px 9px; border-radius:20px; transform:rotate(7deg); box-shadow:0 3px 8px rgba(223,166,63,.5); animation:beat 2s infinite}
+.custombox{display:none; margin-bottom:16px; animation:stepIn .35s both}
+.custombox.show{display:block}
+.custombox input{width:100%; font-family:'Karla'; font-size:16px; padding:13px 14px; border:2px solid var(--ink); border-radius:12px; background:#fff}
+.custombox input:focus{outline:3px dashed var(--rose); outline-offset:2px}
+
+/* ticket */
+.ticket{background:var(--card); border:2px solid var(--ink); border-radius:18px; overflow:hidden; box-shadow:7px 7px 0 rgba(228,83,111,.22); margin-bottom:16px}
+.t-head{background:var(--rose); color:#fff; padding:12px 16px; display:flex; justify-content:space-between; font-weight:800; font-size:.66rem; letter-spacing:.2em; text-transform:uppercase}
+.t-body{padding:8px 16px 6px}
+.trow{display:flex; gap:12px; padding:11px 0; border-bottom:2px dashed var(--line); align-items:flex-start}
+.trow:last-child{border-bottom:none}
+.trow .k{width:76px; flex:none; font-size:.62rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); padding-top:4px}
+.trow .v{font-family:'Fraunces',serif; font-weight:600; font-size:1.02rem; line-height:1.3}
+.trow .v small{display:block; font-family:'Karla'; font-weight:500; font-size:.76rem; color:var(--ink-soft)}
+.perf{position:relative; border-top:3px dashed var(--line); margin:2px -1px}
+.perf::before,.perf::after{content:""; position:absolute; top:-11px; width:20px; height:20px; border-radius:50%; background:var(--paper); border:2px solid var(--ink)}
+.perf::before{left:-12px} .perf::after{right:-12px}
+.barcode{display:flex; justify-content:space-between; align-items:center; padding:10px 16px 14px; font-size:.62rem; font-weight:800; letter-spacing:.2em; color:var(--ink-soft); text-transform:uppercase}
+.barcode .lines{flex:1; height:20px; margin-right:12px; background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px,var(--ink) 5px 6px,transparent 6px 10px)}
+
+/* whatsapp preview */
+.chat{background:#ece5dd; border:2px solid var(--line); border-radius:16px; padding:12px; margin-bottom:16px}
+.bub{max-width:86%; border-radius:11px; padding:8px 11px; font-size:.86rem; line-height:1.4; white-space:pre-line; box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.bub.in{background:#fff; margin-bottom:8px}
+.bub.out{background:#d9fdd3; margin-left:auto}
+.bub .who{font-size:.72rem; font-weight:800; color:var(--rose-deep)}
+.bub .meta{display:block; text-align:right; font-size:.64rem; color:#667781; margin-top:3px}
+.smallnote{font-size:.78rem; color:var(--ink-soft); text-align:center; margin:10px 0 18px; font-family:'Caveat',cursive; font-size:1.05rem}
+.again{text-align:center; margin-top:16px}
+.again button{background:none; border:none; font-family:'Karla'; font-weight:700; color:var(--ink-soft); font-size:.82rem; text-decoration:underline; cursor:pointer}
+.signed{text-align:center; font-family:'Caveat',cursive; font-size:1.35rem; color:var(--rose-deep); margin-top:20px}
+
+footer{position:relative; z-index:2; text-align:center; font-size:.68rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); padding:0 20px 30px}
+.burst{position:fixed; z-index:99; pointer-events:none; font-size:18px}
+:focus-visible{outline:3px dashed var(--rose); outline-offset:3px}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important; transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="floaters" aria-hidden="true"></div>
+
+<div class="ribbon" aria-hidden="true">
+  <div class="track">
+    <i>♥ official date invitation</i><i>for taruu only</i><i>do not share</i><i>valid forever</i>
+    <i>♥ official date invitation</i><i>for taruu only</i><i>do not share</i><i>valid forever</i>
+  </div>
+</div>
+
+<header class="masthead">
+  <span class="from">from · the boy who likes you a lot</span>
+  <h1>To: Taruu <span class="hrt">♡</span></h1>
+  <span class="re">re: one (1) date — pending your approval</span>
+</header>
+
+<main>
+  <div class="progress" id="progress" aria-hidden="true">
+    <span class="dot" data-step="1">1</span><span class="bar"></span>
+    <span class="dot" data-step="2">2</span><span class="bar"></span>
+    <span class="dot" data-step="3">3</span><span class="bar"></span>
+    <span class="dot" data-step="4">4</span>
+  </div>
+
+  <!-- STEP 1 · PASSWORD -->
+  <section class="step active" data-step="1">
+    <div class="envwrap">
+      <div class="env" id="env">
+        <div class="env-back"></div>
+        <div class="env-letter">
+          <form class="lform" id="lockform">
+            <span class="psst">psst… it's locked ♡</span>
+            <h3>This letter is for you.</h3>
+            <p>Type the secret word to unseal it.</p>
+            <input id="pw" type="password" autocomplete="off" placeholder="secret word…" aria-label="secret word">
+            <div class="err" id="pwerr" aria-live="polite"></div>
+            <button class="btn" type="submit">unseal it ♡</button>
+            <p class="hint">hint: the prettiest name I know 🤍</p>
+          </form>
+        </div>
+        <div class="env-front"></div>
+        <div class="env-flap"></div>
+        <button class="seal" id="seal" type="button" aria-label="tap the wax seal">T</button>
+      </div>
+      <p class="taptap" id="taptap">↑ tap the wax seal ↑</p>
+    </div>
+  </section>
+
+  <!-- STEP 2 · WHEN -->
+  <section class="step" data-step="2">
+    <div class="kicker">step one</div>
+    <h2>Pick our day.</h2>
+    <p class="note">choose any day — I'll clear my whole week for you ♡</p>
+    <div class="lbl">the day</div>
+    <div class="scroller" id="days"></div>
+    <div class="lbl">the time</div>
+    <div class="times" id="times"></div>
+    <button class="btn" id="toWhere" disabled>next · where to? →</button>
+  </section>
+
+  <!-- STEP 3 · WHERE -->
+  <section class="step" data-step="3">
+    <button class="back" data-back>← back</button>
+    <div class="kicker">step two</div>
+    <h2>So… where to?</h2>
+    <p class="note">the museum gets my vote, obviously 😌</p>
+    <div class="venues" id="venues"></div>
+    <div class="custombox" id="custombox">
+      <input id="customin" type="text" placeholder="tell me your idea… ♡" maxlength="60">
+    </div>
+    <button class="btn" id="toSend" disabled>next · seal the deal →</button>
+  </section>
+
+ 
